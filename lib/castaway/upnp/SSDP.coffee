@@ -74,7 +74,7 @@ class SSDP extends events.EventEmitter
             addr = @sock.address()
             console.info "SSDP listening on http://#{addr.address}:#{addr.port}"
             Log.i "@sock.addMembership #{@_ssdpIp}"
-            @sock.addMembership @_ssdpIp
+            @sock.addMembership @_ssdpIp, @ip
             Log.i "@sock.addMembership #{@_ssdpTtl}"
             @sock.setMulticastTTL @_ssdpTtl
 
@@ -206,6 +206,7 @@ class SSDP extends events.EventEmitter
     # and starts advertising.
     #
     server: (ip, portno) ->
+        @ip = ip
         if not portno then portno = "10293"
 
         @_usns[@_udn] = @_udn
